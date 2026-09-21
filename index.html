@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FakeBook - Log In</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap');
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f0f2f5; /* Standard social media background color */
+        }
+        /* Custom blue to match the provided image header roughly */
+        .fakebook-header {
+            background-color: #4988c5; 
+        }
+    </style>
+</head>
+<body class="min-h-screen flex flex-col">
+
+    <!-- Header -->
+    <header id="main-header" class="fakebook-header text-white px-6 py-3 shadow-sm flex items-center h-[60px]">
+        <h1 class="text-2xl font-normal tracking-wide">FakeBook</h1>
+    </header>
+
+    <!-- Main Content Area -->
+    <main class="flex-grow flex items-center justify-center p-4 w-full">
+        
+        <!-- Login Container -->
+        <div id="login-container" class="bg-white p-6 sm:p-8 rounded-lg shadow-[0_2px_4px_rgba(0,0,0,0.1),0_8px_16px_rgba(0,0,0,0.1)] w-full max-w-[400px]">
+            <h2 class="text-xl font-medium mb-6 text-center text-gray-800">Log into FakeBook</h2>
+            
+            <form id="login-form" class="flex flex-col gap-4">
+                <div>
+                    <input 
+                        type="text" 
+                        id="username" 
+                        placeholder="Username" 
+                        class="w-full border border-gray-300 p-3.5 rounded-md focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 transition-colors text-lg"
+                        required
+                    >
+                </div>
+                <div>
+                    <input 
+                        type="password" 
+                        id="password" 
+                        placeholder="Password" 
+                        class="w-full border border-gray-300 p-3.5 rounded-md focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 transition-colors text-lg"
+                        required
+                    >
+                </div>
+                
+                <button 
+                    type="submit" 
+                    class="w-full bg-[#1877f2] hover:bg-[#166fe5] text-white font-bold py-3.5 rounded-md text-xl transition duration-200 mt-2"
+                >
+                    Log In
+                </button>
+            </form>
+            
+            <!-- Error/Feedback Message Container -->
+            <p id="feedback-message" class="text-red-600 mt-4 text-center font-medium min-h-[1.5rem]"></p>
+        </div>
+
+        <!-- Feed Container (Hidden by default) -->
+        <div id="feed-container" class="hidden w-full max-w-5xl mx-auto flex-col items-center justify-start h-full pb-8">
+            <img 
+                src="ResourceFakebook.png" 
+                alt="FakeBook Feed" 
+                class="w-full max-w-full h-auto shadow-md bg-white"
+            >
+        </div>
+        
+    </main>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const loginForm = document.getElementById('login-form');
+            const usernameInput = document.getElementById('username');
+            const passwordInput = document.getElementById('password');
+            const feedbackMessage = document.getElementById('feedback-message');
+            const loginContainer = document.getElementById('login-container');
+            const feedContainer = document.getElementById('feed-container');
+
+            loginForm.addEventListener('submit', function(event) {
+                // Prevent the page from reloading on form submission
+                event.preventDefault();
+
+                // Clear previous feedback
+                feedbackMessage.textContent = '';
+
+                const username = usernameInput.value;
+                const password = passwordInput.value;
+
+                // Check username (strictly 'george')
+                if (username !== 'george') {
+                    feedbackMessage.textContent = 'Username is incorrect.';
+                    return; // Stop further execution
+                }
+
+                // Username is correct, now check password
+                if (password !== 'RedSimpsons') {
+                    feedbackMessage.textContent = 'Hint: ColourTV';
+                    return; // Stop further execution
+                }
+
+                // Both username and password are correct
+                // Hide the login form
+                loginContainer.classList.add('hidden');
+                
+                // Show the feed image
+                feedContainer.classList.remove('hidden');
+                feedContainer.classList.add('flex');
+            });
+        });
+    </script>
+</body>
+</html>
